@@ -1,11 +1,15 @@
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
 
+import "./App.css";
+
 function App() {
   return (
-    <div>
-      <Sidebar />
-      <Chat />
+    <div className="app">
+      <div className="app_body">
+        <Sidebar />
+        <Chat />
+      </div>
     </div>
   );
 }

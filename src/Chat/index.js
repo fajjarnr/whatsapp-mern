@@ -1,6 +1,6 @@
 function index() {
   return (
-    <div>
+    <div clasName="chat">
       <h1>Chat</h1>
     </div>
   );
