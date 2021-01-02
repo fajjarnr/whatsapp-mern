@@ -37,10 +37,6 @@ function index() {
         <SidebarChat />
         <SidebarChat />
         <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
       </div>
     </div>
   );
