@@ -6,11 +6,34 @@ import {
   MoreVert,
   SearchOutlined,
 } from "@material-ui/icons";
+import { useState } from "react";
+import axios from "../axios";
 import "./index.css";
 
-function index() {
+function Index({ messages }) {
+  const [input, setInput] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    let dateTime = new Date().toLocaleTimeString();
+
+    await axios
+      .post("/messages/new", {
+        message: input,
+        name: "Fajar",
+        timestamp: dateTime,
+        received: true,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    setInput("");
+  };
+
   return (
-    <div clasName="chat">
+    <div className="chat">
       <div className="chat_header">
         <Avatar />
 
@@ -32,28 +55,27 @@ function index() {
         </div>
       </div>
       <div className="chat_body">
-        <p className="chat_message">
-          <span className="chat_name">Fajar</span>
-          this is new message
-          <span className="chat_timestamp">
-            {new Date().toLocaleTimeString()}
-          </span>
-        </p>
-
-        <p className="chat_received">
-          <span className="chat_name">Fajar</span>
-          this is new message
-          <span className="chat_timestamp">
-            {new Date().toLocaleTimeString()}
-          </span>
-        </p>
+        {messages.map((message) => (
+          <p className={`chat_message ${message.received && "chat_received"}`}>
+            <span className="chat_name">{message.name}</span>
+            {message.message}
+            <span className="chat_timestamp">{message.timestamp}</span>
+          </p>
+        ))}
       </div>
 
       <div className="chat_footer">
         <InsertEmoticon />
         <form>
-          <input type="text" placeholder="Type a Message" />
-          <button type="submit">send</button>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            type="text"
+            placeholder="Type a Message"
+          />
+          <button onClick={sendMessage} type="submit">
+            send
+          </button>
         </form>
         <Mic />
       </div>
@@ -61,4 +83,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
